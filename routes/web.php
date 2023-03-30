@@ -18,12 +18,20 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/login',[AuthController::class, 'login'])->name('login');
+Route::get('/login',[AuthController::class, 'login'])->name('login')->middleware('guest');
 
-Route::post('/login',[AuthController::class, 'processLogin']);
+Route::post('/login',[AuthController::class, 'processLogin'])->middleware('guest');
 
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
+Route::get('/home-user',function(){
+    return 'Logged in as user';
+})->middleware('auth:web');
+
+Route::get('/home-teacher',function(){
+    return 'Logged in as teacher';
+})->middleware('auth:teacher');
+
 Route::get('/home',function(){
-    return 'Logged in';
-})->middleware('auth:teacher,web');
+    return 'page for all';
+})->middleware('auth');

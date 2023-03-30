@@ -21,12 +21,12 @@ class AuthController extends Controller
 
         if (Auth::guard('teacher')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/home');
+            return redirect()->intended('/home-teacher');
         }
 
         if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/home');
+            return redirect()->intended('/home-user');
         }
 
         return back()->withErrors([
