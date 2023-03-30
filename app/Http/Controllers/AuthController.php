@@ -24,6 +24,11 @@ class AuthController extends Controller
             return redirect()->intended('/home');
         }
 
+        if (Auth::guard('web')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/home');
+        }
+
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');

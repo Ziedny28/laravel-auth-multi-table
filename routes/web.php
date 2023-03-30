@@ -26,4 +26,4 @@ Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
 Route::get('/home',function(){
     return 'Logged in';
-})->middleware('auth:teacher');
+})->middleware('auth:teacher,web');
