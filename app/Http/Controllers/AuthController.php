@@ -19,7 +19,7 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('teacher')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/home');
         }
