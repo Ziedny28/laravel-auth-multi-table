@@ -18,11 +18,12 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/login',[AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::middleware(['guest'])->group(function(){
+    Route::get('/login',[AuthController::class, 'login'])->name('login');
+    Route::post('/login',[AuthController::class, 'processLogin']);
+});
 
-Route::post('/login',[AuthController::class, 'processLogin'])->middleware('guest');
-
-Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+Route::get('/logout',[AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::get('/home-user',function(){
     return 'Logged in as user';
